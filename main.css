@@ -1,0 +1,113 @@
+
+body {
+    /*background-image: url(../img/picture.jpg);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    background-color: #76a4aa;
+}
+
+.nav-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(137, 190, 190);
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1000;
+    
+}
+
+.btn-toggle-nav {
+    width: 60px;
+    height: 100%;
+    background-color: #d4caca;
+    background-image: url("menuBtn.png");
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+    cursor: pointer;
+
+}
+
+.btn-toggle-nav:hover {
+    opacity: 0.7;
+    width: 60px;
+    height: 100%;
+    background-color: #d4caca;
+    background-image: url("menuBtn.png");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+    cursor: pointer;
+
+}
+
+.nav-main ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 15px;
+}
+
+.nav-main ul li {
+    list-style: none;
+    line-height: 10px;
+}
+
+.nav-main ul li a {
+    display: block;
+    height: 100%;
+    padding: 0 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #111;
+    font-family: sans-serif;
+    font-size: 16px;
+
+}
+
+.nav-sidebar {
+    position: fixed;
+    left: 0px;
+    bottom: 0;
+    width: 50px;
+    height: calc(100vh - 60px);
+    padding: 0 5px;
+    background-color: #1b1b1b;
+    z-index:  1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-sidebar ul {
+    padding-top: 15px;
+    overflow: hidden;
+    visibility: hidden;
+
+}
+
+.nav-sidebar ul li {
+    line-height: 60px;
+    list-style: none;
+    
+}
+
+.nav-sidebar ul li span, .nav-sidebar ul li a {
+    display: block;
+    height: 60px;
+    padding: 0 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #d4caca;
+    font-family: sans-serif;
+    font-size: 16;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.nav-sidebar ul li a:hover{
+    background-color: #222;
+    
+}
