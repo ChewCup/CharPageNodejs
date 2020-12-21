@@ -36,7 +36,7 @@ function appendData(res, query) {
     let lines = [];
     lines = data.toString().split(",");
     lines.forEach(element => {
-        res.write("<p>"+element+"</p>")
+        res.write("<td>"+element+"</td>")
     });
 
     res.write(header);
@@ -46,12 +46,14 @@ function charPage(res) {
     let header = fs.readFileSync('header.html', 'utf8');
     let data = fs.readFileSync('charlist.lis', 'utf8');
     let lines = [];
+    data = data.slice(0, -2);
     lines = data.toString().split(",");
 
     if (lines == "" || lines == null){
         res.write("<p>\Your list is empty\</p>")
     }
     else  {
+        let printlist = fs.readFileSync('printlist.html', 'utf8');
         lines.forEach(element => {
             res.write("<p>")
             res.write("<label>"+element+"</label>")
