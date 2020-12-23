@@ -53,6 +53,22 @@
     select[id="selectClass"] {
         margin-left: 20px;
     }
+    input[id="myInput"] {
+        margin-top: 10px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-bottom: 10px;
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+    }
     
 </style>
 <body>
@@ -62,26 +78,23 @@
 
         <ul>
             <li><a href="http://localhost:8080/">Home</a></li>
-            <li><a href="#">News</a></li>
             <li><a href="#">Classes</a></li>
             <li><a href="http://localhost:8080/character">Characters</a><onclick="charPage()"</li>
             <li><a href="#">Forums</a></li>
             <li><a href="#">Support</a></li>
             <li><a href="http://localhost:8080/About">About</a></li>
         </ul>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
     </nav>
 
-    <!-- <aside class="nav-sidebar">
+    <aside class="nav-sidebar">
         <ul>
             <li><span>Random</span></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Classes</a></li>
             <li><a href="http://localhost:8080/character">Characters</a><onclick="charPage()"</li>
-            <li><a href="#">Forums</a></li>
-            <li><a href="#">Support</a></li>
+            
         </ul>
 
-    </aside> -->
+    </aside>
 
     <div class="character">
         <form class="input-form" action="/append">
@@ -104,5 +117,4 @@
         </form>
     </div>
 </body>
-
 </html>

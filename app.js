@@ -2,7 +2,7 @@
 const http = require('http')
 var fs = require('fs');
 var url = require('url');
-const { table } = require('console');
+
 
 /* Register server: */
 http.createServer(function (req, res) {
@@ -75,7 +75,6 @@ function charPage(res) {
             
             res.write("<td>"+word[0]+"</td>");
             res.write("<td>"+word[1]+"</td>");
-            res.write("<input type=\"checkbox\">")
             res.write("</tr>");
             console.log(word[0], word[1])
         };
@@ -86,4 +85,7 @@ function charPage(res) {
     res.end();
 }
 
+function searchBarFunction(res, query) {
+}
+   
 }).listen(8080);
