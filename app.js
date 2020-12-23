@@ -5,7 +5,6 @@ var url = require('url');
 
 function mainPage(res) {
     let mainHTML = fs.readFileSync('index.html', 'utf8');
-    console.log("<"+mainHTML.toString()+">");
     res.write(mainHTML);
     res.end();
 
@@ -13,53 +12,46 @@ function mainPage(res) {
 
 function loadmaincss(res) {
     let mainCSS = fs.readFileSync('main.css', 'utf8');
-    console.log("<"+mainCSS.toString()+">");
     res.write(mainCSS);
     res.end();
-    
-}
 
-function loadimg(res) {
-    let btnPic = fs.readFileSync('menuBtn.png');
-    res.write(btnPic);
-    res.end();
 }
 
 function appendData(res, query) {
-    let header = fs.readFileSync('header.html', 'utf8');
+    let header = fs.readFileSync('appendDataList.html', 'utf8');
     var charname = query.charname;
     var nameclass = query.nameclass;
-    res.write("Your character name is " + charname + " and your class is " + nameclass +".");
-    fs.appendFileSync('charlist.lis', charname + " " + nameclass + ",\n");
-    
-    let data = fs.readFileSync('charlist.lis', 'utf8');
-    let lines = [];
-    lines = data.toString().split(",");
-    lines.forEach(element => {
-        res.write("<td>"+element+"</td>")
-    });
 
+    res.write("<tabel id=\"addedToList\">")
+    res.write("<p>\Your character name is "+charname+" and your class is "+ nameclass+".\</p>");
+    res.write("</tabel>")
+    fs.appendFileSync('charlist.lis',charname+" "+nameclass+",\n");
     res.write(header);
     res.end();
 }
-function charPage(res) { 
-    let header = fs.readFileSync('header.html', 'utf8');
+function charPage(res) {
+    let header = fs.readFileSync('printlist.html', 'utf8');
     let data = fs.readFileSync('charlist.lis', 'utf8');
     let lines = [];
     data = data.slice(0, -2);
     lines = data.toString().split(",");
 
+
     if (lines == "" || lines == null){
-        res.write("<p>\Your list is empty\</p>")
+        let newform = fs.readFileSync('newcharform.html', 'utf8');
+        res.write("<p>\Your list is empty!\</p>")
+        res.write(newform);
     }
     else  {
-        let printlist = fs.readFileSync('printlist.html', 'utf8');
-        lines.forEach(element => {
+        res.write("<div id=\"listOnPage\">")
+        for (let index = 0; index < lines.length; index++) {
             res.write("<p>")
-            res.write("<label>"+element+"</label>")
+            res.write("<tr>"+lines[index]+"</tr>")
             res.write("<input type=\"checkbox\"></p>")
-        })  
-    }
+        };
+        res.write("</div>")
+
+    };
     res.write(header);
     res.end();
 }
@@ -84,10 +76,6 @@ http.createServer(function (req, res) {
     else if (path == "/main.css") {
         loadmaincss(res);
     }
-    else if (path == "/menuBtn.png") {
-        loadimg(res);
-    }
 
-    
     res.end();
 }).listen(8080);
