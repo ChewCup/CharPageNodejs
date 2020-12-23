@@ -2,6 +2,30 @@
 const http = require('http')
 var fs = require('fs');
 var url = require('url');
+const { table } = require('console');
+
+/* Register server: */
+http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    var q = url.parse(req.url, true);
+    var path = q.pathname;
+    console.log("Serving " + req.url);
+    res.write(req.url);
+
+    if(path == "/") {
+    	mainPage(res);
+    }
+    else if (path == "/append") {
+        appendData(res, q.query);
+    }
+    else if (path == "/character") {
+        charPage(res);
+    }
+    else if (path == "/main.css") {
+        loadmaincss(res);
+    }
+
+    res.end();
 
 function mainPage(res) {
     let mainHTML = fs.readFileSync('index.html', 'utf8');
@@ -32,10 +56,9 @@ function appendData(res, query) {
 function charPage(res) {
     let header = fs.readFileSync('printlist.html', 'utf8');
     let data = fs.readFileSync('charlist.lis', 'utf8');
-    let lines = [];
+    let word = [];
     data = data.slice(0, -2);
     lines = data.toString().split(",");
-
 
     if (lines == "" || lines == null){
         let newform = fs.readFileSync('newcharform.html', 'utf8');
@@ -43,39 +66,24 @@ function charPage(res) {
         res.write(newform);
     }
     else  {
-        res.write("<div id=\"listOnPage\">")
-        for (let index = 0; index < lines.length; index++) {
-            res.write("<p>")
-            res.write("<tr>"+lines[index]+"</tr>")
-            res.write("<input type=\"checkbox\"></p>")
+        
+        res.write("<table>")
+        res.write("<tr><th>Character Name</th><th>Character Class</th></tr>")
+        
+        for (let i = 0; i < lines.length; i++) {
+            let word = lines[i].split(" ");
+            
+            res.write("<td>"+word[0]+"</td>");
+            res.write("<td>"+word[1]+"</td>");
+            res.write("<input type=\"checkbox\">")
+            res.write("</tr>");
+            console.log(word[0], word[1])
         };
-        res.write("</div>")
+        res.write("</table>")
 
     };
     res.write(header);
     res.end();
 }
 
-/* Register server: */
-http.createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    var q = url.parse(req.url, true);
-    var path = q.pathname;
-    console.log("Serving " + req.url);
-    res.write(req.url);
-
-    if(path == "/") {
-    	mainPage(res);
-    }
-    else if (path == "/append") {
-        appendData(res, q.query);
-    }
-    else if (path == "/character") {
-        charPage(res);
-    }
-    else if (path == "/main.css") {
-        loadmaincss(res);
-    }
-
-    res.end();
 }).listen(8080);
